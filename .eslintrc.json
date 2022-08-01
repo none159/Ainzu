@@ -1,0 +1,6 @@
+{
+    "env": {
+        "node": true
+    },
+    "tslint":"disable no-var-requires"
+}
