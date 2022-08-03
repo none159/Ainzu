@@ -11,6 +11,10 @@
     "type": "git",
     "url": "git+https://github.com/none159/Ainzu.git"
   },
+  "dependencies": {
+    "discord.js": "^14.1.2",
+    "sqlite3":"5.0.11"
+  },
   "author": "",
   "license": "ISC",
   "bugs": {
