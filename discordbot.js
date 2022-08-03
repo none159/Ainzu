@@ -1,5 +1,5 @@
 /* start requirements */
-const { Client, Intents} = require('discord.js');
+const { Client, Intents,GatewayIntentBits} = require('discord.js');
 const SQLite = require("sqlite3");
 const sql = new SQLite.Database("../score.sqlite",SQLite.OPEN_READWRITE);
 const client = new Client({ intents: [GatewayIntentBits.GUILDS, GatewayIntentBits.GUILD_MESSAGES,GatewayIntentBits.GUILD_MEMBERS] });
