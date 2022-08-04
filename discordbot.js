@@ -233,7 +233,7 @@ client.on("message",async msg => {
        /* if first fighter has more rules */
         if(fighter1>fighter2){
           console.log(random)
-          if(random>20){
+          if(random<20){
             msg.reply(args[0]+' '+'won')
             msg.reply('YOUR PUNICHED GO DOWN!!!')
             let randomrole = Math.floor(Math.random() * roless.fighter1.length)
