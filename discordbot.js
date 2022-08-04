@@ -232,6 +232,7 @@ client.on("message",async msg => {
        /* continue logic- fix bugs-delete unnecessary code*/
        /* if first fighter has more rules */
         if(fighter1>fighter2){
+          console.log(random)
           if(random>20){
             msg.reply(args[0]+' '+'won')
             msg.reply('YOUR PUNICHED GO DOWN!!!')
@@ -247,6 +248,7 @@ client.on("message",async msg => {
               msg.mentions.members.first().kick()
             }
             else{
+              console.log(random)
               if(lvl!== 0){
              lvl = lvl - 1
              xpmax = xpmax - 1000
