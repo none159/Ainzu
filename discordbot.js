@@ -73,13 +73,13 @@ client.on('guildMemberRemove',async oldMember=>{
   sql.exec(`DELETE from score${oldMember.guild.id} where id=${oldMember.id}`)
   const welcomeChannel = oldMember.guild.channels.cache.find(channel => channel.name === 'welcome')
   const embedmsg =  {
-    title: `${newMember.user.username} Left The Server`,
+    title: `${oldMember.user.username} Left The Server`,
     color:' #E0115F',
     footer:{
       text:'have a good and fresh life'
     },
     thumbnail:{
-      url:newMember.user.avatarURL()
+      url:oldMember.user.avatarURL()
     }
   }
   welcomeChannel.send({embeds:[embedmsg]})
