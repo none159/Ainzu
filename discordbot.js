@@ -58,7 +58,8 @@ client.on('guildMemberAdd', async newMember => {
   sql.exec(`insert OR REPLACE into score${newMember.guild.id}(id,LvL,xp,xpmax) values(${newMember.id},0,0,2000)`)
   const welcomeChannel = newMember.guild.channels.cache.find(channel => channel.name === 'welcome')
    const embedmsg =  {
-    description: `Welcome To The Server ${newMember.user.username}`,
+     title:`${newMember.user.tag}`,
+    description: `Welcome To The Server ${newMember.user}`,
     color:' #E0115F',
     footer:{
       text:'have a boring time.'
@@ -73,7 +74,8 @@ client.on('guildMemberRemove',async oldMember=>{
   sql.exec(`DELETE from score${oldMember.guild.id} where id=${oldMember.id}`)
   const welcomeChannel = oldMember.guild.channels.cache.find(channel => channel.name === 'welcome')
   const embedmsg =  {
-    description: `${oldMember.user.username} Left The Server`,
+    title:`${oldMember.user.tag}`,
+    description: `${oldMember.user} Left The Server`,
     color:' #E0115F',
     footer:{
       text:'have a good and fresh life'
