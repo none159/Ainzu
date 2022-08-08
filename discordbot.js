@@ -57,12 +57,32 @@ client.on('guildCreate',async guild => {
 client.on('guildMemberAdd', async newMember => {
   sql.exec(`insert OR REPLACE into score${newMember.guild.id}(id,LvL,xp,xpmax) values(${newMember.id},0,0,2000)`)
   const welcomeChannel = newMember.guild.channels.cache.find(channel => channel.name === 'welcome')
-  welcomeChannel.send(` ${newMember} Welcome To most Miserable place`)
+   const embedmsg =  {
+    title: `Welcome To The Server ${newMember.user.username}`,
+    color:' #E0115F',
+    footer:{
+      text:'have a boring time.'
+    },
+    thumbnail:{
+      url:newMember.user.avatarURL()
+    }
+  }
+  welcomeChannel.send({embeds:[embedmsg]})
 })
 client.on('guildMemberRemove',async oldMember=>{
   sql.exec(`DELETE from score${oldMember.guild.id} where id=${oldMember.id}`)
   const welcomeChannel = oldMember.guild.channels.cache.find(channel => channel.name === 'welcome')
-  welcomeChannel.send(` ${oldMember} bye bye start new fresh life`)
+  const embedmsg =  {
+    title: `${newMember.user.username} Left The Server`,
+    color:' #E0115F',
+    footer:{
+      text:'have a good and fresh life'
+    },
+    thumbnail:{
+      url:newMember.user.avatarURL()
+    }
+  }
+  welcomeChannel.send({embeds:[embedmsg]})
 })
 /*------------------------------*/
 /*handle bot functioning */
