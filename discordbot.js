@@ -1,7 +1,6 @@
 /* start requirements */
 const { Client, Intents} = require('discord.js');
 const SQLite = require("sqlite3");
-const keepalive  = require('./server')
 require('dotenv').config()
 const sql = new SQLite.Database("../score.sqlite",SQLite.OPEN_READWRITE);
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES,Intents.FLAGS.GUILD_MEMBERS] });
