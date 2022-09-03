@@ -128,7 +128,8 @@ client.on("message",async msg => {
     if(commands === 'LVL' && args[0]==undefined){
       console.log(msg.guild.id)
       console.log(msg.author.id)
-      sql.all(`SELECT * FROM score${msg.guild.id} where id=${msg.author.id}`, function(err, rows) {  
+      sql.all(`SELECT * FROM score${msg.guild.id} where id=${msg.author.id}`, function(err, rows) { 
+        console.log(rows)
         rows.forEach(function (row) { 
           const embedmsg =  {
             author:{
