@@ -159,7 +159,7 @@ client.on("message",async msg => {
       msg.reply({embeds:[embedmsg]})
     }
     if(commands === 'LVL' && msg.guild.members.cache.get(args[0].slice(2,-1))){
-      if(msg.guild.members.cache.get(args[0].slice(2,-1)).user.username== client.user.username){
+      if(msg.guild.members.cache.get(args[0].slice(2,-1)).user.username == client.user.username){
         const embedmsg =  {
           author:{
             name:msg.guild.members.cache.get(args[0].slice(2,-1)).user.username
