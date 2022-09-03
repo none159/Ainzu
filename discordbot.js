@@ -45,7 +45,7 @@ client.on('guildCreate',async guild => {
   }
   guild.systemChannel.send({embeds:[embedmsg]})
   let id = `score${guild.id}`
-  sql.exec(`DROP TABLE ${id}`)
+  sql.exec(`DROP TABLE IF EXISTS ${id}`)
   const Guild = await client.guilds.fetch(guild.id)
   const members = await Guild.members.fetch()
    let query = "CREATE TABLE " + id + " (id INTEGER PRIMARY KEY, LvL INTEGER,xp INTEGER,xpmax INTEGER)";
