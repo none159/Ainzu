@@ -130,6 +130,7 @@ client.on("message",async msg => {
       console.log(msg.author.id)
       sql.all(`SELECT * FROM score${msg.guild.id} where id=${msg.author.id}`, function(err, rows) { 
         console.log(rows)
+        console.log(err)
         rows.forEach(function (row) { 
           const embedmsg =  {
             author:{
