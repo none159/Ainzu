@@ -45,10 +45,10 @@ client.on('guildCreate',async guild => {
   }
   guild.systemChannel.send({embeds:[embedmsg]})
   let id = `score${guild.id}`
+  sql.exec(`DROP TABLE IF EXISTS ${id}`)
   const Guild = await client.guilds.fetch(guild.id)
-  console.log(id)
   const members = await Guild.members.fetch()
-   let query = "CREATE TABLE IF NOT EXISTS " + id + " (id INTEGER PRIMARY KEY, LvL INTEGER,xp INTEGER,xpmax INTEGER)";
+   let query = "CREATE TABLE " + id + " (id INTEGER PRIMARY KEY, LvL INTEGER,xp INTEGER,xpmax INTEGER)";
   sql.exec(query)
   members.map((member)=>{
    sql.exec(`insert or Replace into ${id} (id,LvL,xp,xpmax) values(${member.user.id},0,0,2000)`)
@@ -72,7 +72,7 @@ client.on('guildMemberAdd', async newMember => {
 })
 client.on('guildMemberRemove',async oldMember=>{
   if(!oldMember.user.bot){
-  sql.all(`DELETE from score${oldMember.guild.id} where id=${oldMember.id}`)
+  sql.exec(`DELETE from score${oldMember.guild.id} where id=${oldMember.id}`)
   const welcomeChannel = oldMember.guild.channels.cache.find(channel => channel.name === 'welcome')
   const embedmsg =  {
     title:`${oldMember.user.tag}`,
@@ -85,17 +85,15 @@ client.on('guildMemberRemove',async oldMember=>{
       url:oldMember.user.avatarURL()
     }
   }
-  
   welcomeChannel.send({embeds:[embedmsg]})
-  }
+}
 })
 /*------------------------------*/
 /*handle bot functioning */
 client.on("message",async msg => {
   if(msg.author.bot)return;
    if(!msg.author.bot){
-    sql.exec(`SELECT * FROM score${msg.guild.id} where id=${msg.author.id}`, function(err, rows) {  
-      console.log(rows)
+    sql.all(`SELECT * FROM score${msg.guild.id} where id=${msg.author.id}`, function(err, rows) {  
       rows.forEach(function (row) { 
         if(row.xp<=row.xpmax){
           xp = row.xp + 1000
@@ -129,11 +127,7 @@ client.on("message",async msg => {
     try{
     const[commands, ...args] = msg.content.trim().substring(prefix.length).split(/\s+/)
     if(commands === 'LVL' && args[0]==undefined){
-      console.log(msg.guild.id)
-      console.log(msg.author.id)
-      sql.all(`SELECT * FROM score${msg.guild.id} where id=${msg.author.id}`, function(err, rows) { 
-        console.log(rows)
-        console.log(err)
+      sql.all(`SELECT * FROM score${msg.guild.id} where id=${msg.author.id}`, function(err, rows) {  
         rows.forEach(function (row) { 
           const embedmsg =  {
             author:{
@@ -164,7 +158,7 @@ client.on("message",async msg => {
       msg.reply({embeds:[embedmsg]})
     }
     if(commands === 'LVL' && msg.guild.members.cache.get(args[0].slice(2,-1))){
-      if(msg.guild.members.cache.get(args[0].slice(2,-1)).user.username == client.user.username){
+      if(msg.guild.members.cache.get(args[0].slice(2,-1)).user.username== client.user.username){
         const embedmsg =  {
           author:{
             name:msg.guild.members.cache.get(args[0].slice(2,-1)).user.username
