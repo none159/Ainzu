@@ -94,7 +94,8 @@ client.on('guildMemberRemove',async oldMember=>{
 client.on("message",async msg => {
   if(msg.author.bot)return;
    if(!msg.author.bot){
-    sql.all(`SELECT * FROM score${msg.guild.id} where id=${msg.author.id}`, function(err, rows) {  
+    sql.get(`SELECT * FROM score${msg.guild.id} where id=${msg.author.id}`, function(err, rows) {  
+      console.log(rows)
       rows.forEach(function (row) { 
         if(row.xp<=row.xpmax){
           xp = row.xp + 1000
