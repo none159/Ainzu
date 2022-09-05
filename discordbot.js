@@ -45,11 +45,10 @@ client.on('guildCreate',async guild => {
   }
   guild.systemChannel.send({embeds:[embedmsg]})
   let id = `score${guild.id}`
-  sql.exec(`DROP TABLE IF EXISTS ${id}`)
   const Guild = await client.guilds.fetch(guild.id)
   console.log(id)
   const members = await Guild.members.fetch()
-   let query = "CREATE TABLE " + id + " (id INTEGER PRIMARY KEY, LvL INTEGER,xp INTEGER,xpmax INTEGER)";
+   let query = "CREATE TABLE IF NOT EXISTS " + id + " (id INTEGER PRIMARY KEY, LvL INTEGER,xp INTEGER,xpmax INTEGER)";
   sql.exec(query)
   members.map((member)=>{
    sql.exec(`insert or Replace into ${id} (id,LvL,xp,xpmax) values(${member.user.id},0,0,2000)`)
