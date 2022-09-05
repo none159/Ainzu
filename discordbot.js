@@ -71,6 +71,7 @@ client.on('guildMemberAdd', async newMember => {
   welcomeChannel.send({embeds:[embedmsg]})
 })
 client.on('guildMemberRemove',async oldMember=>{
+  if(!oldMember.user.bot){
   sql.exec(`DELETE from score${oldMember.guild.id} where id=${oldMember.id}`)
   const welcomeChannel = oldMember.guild.channels.cache.find(channel => channel.name === 'welcome')
   const embedmsg =  {
@@ -84,7 +85,9 @@ client.on('guildMemberRemove',async oldMember=>{
       url:oldMember.user.avatarURL()
     }
   }
+  
   welcomeChannel.send({embeds:[embedmsg]})
+  }
 })
 /*------------------------------*/
 /*handle bot functioning */
